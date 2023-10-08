@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<label class="form-label">
+				Початок: <input type="number" class="form-control" v-model="start">
+			</label>
+			<br>
+			<label class="form-label">
+				Кінець: <input type="number" class="form-control" v-model="end">
+			</label>
+			<br>
+			<button class="btn btn-primary" @click="getRandom">Згенерувати число</button>
+			<hr>
+			Рандомне число: <b>{{ random }}</b>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		createApp({
+			data() {
+				return {
+					start: 0,
+					end: 0,
+					random: null
+				}
+			},
+			methods: {
+				getRandom() {
+					this.random = Math.floor(Math.random() * (this.end - this.start + 1)) + this.start;
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+</html>

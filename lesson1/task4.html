@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.form {
+			width: 300px;
+		}
+		.red {
+			color: red;
+		}
+		.green {
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<h3>Сума на рахунку: {{ accountAmount }} грн</h3>
+			<div class="form mb-3">
+				<label class="form-label">
+					Введіть суму:
+				</label>
+				<input type="number" class="form-control" v-model="amount">
+				<div class="d-flex justify-content-between mt-3">
+					<button type="button" class="btn btn-success" @click="deposit">Зарахувати</button>
+					<button type="button" class="btn btn-danger" @click="withdraw">Зняти</button>
+				</div>
+			</div>
+			<div>
+				Відсотки за обслуговування: {{ getComission }} грн
+			</div>
+			<hr>
+			Сума у доларах: <b :class="getColorUSD">{{ getAmountUSD }}</b>
+			<br>
+			Сума у євро: <b :class="getColorEUR">{{ getAmountEUR }}</b>
+			<div class="alert alert-warning" v-if="infoMessage">
+				{{ infoMessage }}
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const exchangeRateUSD = 37.5,
+			  exchangeRateEUR = 39.8
+
+		createApp({
+			data() {
+				return {
+					amount: 0,
+					accountAmount: 0,
+					infoMessage: '',
+					commissionPercent: 3,
+				}
+			},
+			computed: {
+				getComission() {
+					return this.amount * this.commissionPercent / 100
+				},
+				getAmountUSD() {
+					return (this.accountAmount / exchangeRateUSD).toFixed(2)
+				},
+				getAmountEUR() {
+					return (this.accountAmount / exchangeRateEUR).toFixed(2)
+				},
+				getColorUSD() {
+					if(this.accountAmount / exchangeRateUSD >= 100) {
+						return 'green'
+					}else{
+						return 'red'
+					}
+				},
+				getColorEUR() {
+					if(this.accountAmount / exchangeRateEUR >= 100) {
+						return 'green'
+					}else{
+						return 'red'
+					}
+				}
+			},
+			methods: {
+				deposit() {
+					if(this.amount > 0) {
+						this.accountAmount += this.amount - this.getComission
+						this.amount = 0
+						this.infoMessage = ''
+					}else{
+						this.amount = 0
+						this.infoMessage = 'Сума зарахування повинна бути більше 0.'
+					}
+				},
+				withdraw() {
+					if((this.accountAmount - this.amount) >= 0) {
+						this.accountAmount -= this.amount - this.getComission
+						this.amount = 0
+						this.infoMessage = ''
+					}else{
+						this.amount = 0
+						this.infoMessage = 'Неможна зняти більше, ніж є.'
+					}
+				},
+			}
+		}).mount('#app')
+	</script>
+</body>
+</html>
