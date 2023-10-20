@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+				<div class="card" 
+				:class="{
+					'border-success': isCorrect && isCorrect !== null,
+					'border-danger': !isCorrect && isCorrect !== null,
+				}"
+				style="width: 18rem;">
+					<img :src="image" class="card-img-top">
+					<div class="card-body">
+						<p class="card-text">{{ engWord }}</p>
+						<input type="text" v-model="uaTranslate" class="form-control w-100" placeholder="Переклад..">
+						<button type="button" class="btn btn-primary w-100 mt-3" @click="checkWord">Перевірити</button>
+
+						<div class="alert mt-1" 
+							v-if="message"
+							:class="{
+								'alert-success': isCorrect,
+								'alert-danger': !isCorrect,
+							}"
+						>
+							{{message}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		createApp({
+			data() {
+				return {
+					uaTranslate: '',
+					image: 'https://media.wired.com/photos/64daad6b4a854832b16fd3bc/master/w_2560%2Cc_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg',
+					engWord: 'laptop',
+					uaWord: 'ноутбук',
+					message: '',
+					isCorrect: null
+				}
+			},
+			methods: {
+				checkWord(){
+					if(this.uaTranslate === this.uaWord){
+						this.message = 'Все вірно, ви молодець!'
+						this.isCorrect = true
+					}else{
+						this.message = 'Спробуйте ще.'
+						this.isCorrect = false
+					}
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>

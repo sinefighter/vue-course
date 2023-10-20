@@ -26,7 +26,6 @@
 		<div class="wrapper p-5" 
 			:class="passangerChoise.class"
 		>
-		{{passangerChoise}}
 			<div class="border rounded p-5">
 				<select class="form-select" v-model="passangerChoise.class" @change="resetChoise">
 					<option disabled value="">Оберіть клас місця</option>
@@ -94,10 +93,6 @@
 		createApp({
 			data() {
 				return {
-					selectedClass: '',
-					checkBusiness: [],
-					radioSnacks: '',
-					checkEconom: [],
 					passangerChoise: {
 						class: '',
 						additionals: [],
