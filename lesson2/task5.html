@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<div class="card mb-3" style="max-width: 540px;" v-for="(item, key) in webTechnologies" :key="key">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img :src="item.logo" class="img-fluid rounded-start">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">{{item.name}}</h5>
+							<p class="card-text">{{item.description}}</p>
+							<a :href="item.link" class="card-text"><small class="text-muted">{{item.link}}</small></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		createApp({
+			data() {
+				return {
+					webTechnologies: [
+						{
+							logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/480px-JavaScript-logo.png',
+							name: 'JavaScript',
+							description: 'JavaScript — это высокоуровневый, интерпретируемый язык программирования. Он широко используется для разработки веб-приложений и добавления интерактивности на веб-сайтах.',
+							link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+						},
+						{
+							logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png',
+							name: 'React',
+							description: 'React — это библиотека для создания пользовательских интерфейсов. Она позволяет разрабатывать компоненты для построения мощных веб-приложений.',
+							link: 'https://reactjs.org/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/angular-icon-1.svg',
+							name: 'Angular',
+							description: 'Angular — это фреймворк для разработки одностраничных приложений. Он предоставляет множество инструментов и модулей для разработки.',
+							link: 'https://angular.io/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/vue-9.svg',
+							name: 'Vue.js',
+							description: 'Vue.js — это прогрессивный фреймворк для создания веб-приложений. Он легковесный и прост в использовании.',
+							link: 'https://vuejs.org/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/html5-2.svg',
+							name: 'HTML5',
+							description: 'HTML5 — это последняя версия языка разметки, используемая для создания содержания веб-сайтов и веб-приложений.',
+							link: 'https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/css-3.svg',
+							name: 'CSS3',
+							description: 'CSS3 — это последняя версия каскадных таблиц стилей, используемых для стилизации веб-сайтов и придания им визуального оформления.',
+							link: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+						},
+						{
+							logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png',
+							name: 'Python',
+							description: 'Python — это высокоуровневый язык программирования, широко используемый для веб-разработки, научных вычислений и других задач.',
+							link: 'https://www.python.org/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/sass-1.svg',
+							name: 'Sass',
+							description: 'Sass — это препроцессор CSS, который добавляет множество дополнительных функций к обычному CSS, упрощая стилизацию.',
+							link: 'https://sass-lang.com/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/nodejs.svg',
+							name: 'Node.js',
+							description: 'Node.js — это среда выполнения JavaScript на стороне сервера, которая позволяет разрабатывать серверные приложения с использованием JavaScript.',
+							link: 'https://nodejs.org/',
+						},
+						{
+							logo: 'https://cdn.worldvectorlogo.com/logos/mysql-3.svg',
+							name: 'MySQL',
+							description: 'MySQL — это система управления базами данных с открытым исходным кодом, широко используемая для хранения данных в веб-приложениях.',
+							link: 'https://www.mysql.com/',
+						},
+					]
+				}
+			},
+			methods: {
+
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>
