@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<div class="mb-4">
+				<h3>Нова замовлена страва:</h3>
+
+				<div class="row g-3">
+					<div class="col-auto">
+						<input class="form-control" v-model="newDish" type="text" placeholder="Назва страви">
+					</div>
+					<div class="col-auto">
+						<button type="button" class="btn btn-primary" @click="addToWaitingList">Додати</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="border p-3">
+						<div class="alert alert-info" v-if="!waitingList.length">
+							Нових страв немає
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item" v-for="(item, key) in waitingList" :key="key">
+								<div class="d-flex justify-content-between align-items-center">
+									<span>{{item}}</span>
+									<button type="button" class="btn btn-primary" @click="addToProcessingList(key)">Готувати</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="border p-3">
+						<div class="alert alert-info" v-if="!processingList.length">
+							Нових страв немає
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item" v-for="(item, key) in processingList" :key="key">
+								<div class="d-flex justify-content-between align-items-center">
+									<span>{{item}}</span>
+									<button type="button" class="btn btn-primary" @click="addToCompletedList(key)">Приготовлено</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="border p-3">
+						<div class="alert alert-info" v-if="!completedList.length">
+							Нових страв немає
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item" v-for="(item, key) in completedList" :key="key">
+								<div class="d-flex justify-content-between align-items-center">
+									<span>{{item}}</span>
+									<button type="button" class="btn btn-primary" @click="removeDish(key)">Подано</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		createApp({
+			data() {
+				return {
+					newDish: '',
+					waitingList: [],
+					processingList: [],
+					completedList: []
+				}
+			},
+			methods: {
+				addToWaitingList() {
+					this.waitingList.push(this.newDish)
+					this.newDish = ''
+				},
+				addToProcessingList(arrayIndex) {
+					this.processingList.push(this.waitingList[arrayIndex])
+					this.waitingList.splice(arrayIndex, 1);
+				},
+				addToCompletedList(arrayIndex) {
+					this.completedList.push(this.processingList[arrayIndex])
+					this.processingList.splice(arrayIndex, 1);
+				},
+				removeDish(arrayIndex) {
+					this.completedList.splice(arrayIndex, 1);
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>
