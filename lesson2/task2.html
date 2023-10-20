@@ -24,26 +24,27 @@
 <body>
 	<div id="app">
 		<div class="wrapper p-5" 
-			:class="selectedClass"
+			:class="passangerChoise.class"
 		>
+		{{passangerChoise}}
 			<div class="border rounded p-5">
-				<select class="form-select" v-model="selectedClass">
+				<select class="form-select" v-model="passangerChoise.class" @change="resetChoise">
 					<option disabled value="">Оберіть клас місця</option>
 					<option value="business">Бізнес-клас</option>
 					<option value="econom">Економ-клас</option>
 				</select>
 			</div>
 
-			<div class="border rounded p-5 mt-3" v-if="selectedClass === 'business'">
+			<div class="border rounded p-5 mt-3" v-if="passangerChoise.class === 'business'">
 				<h3>Оберіть, що вам треба:</h3>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="Газета" v-model="checkBusiness" id="check-business-1">
+					<input class="form-check-input" type="checkbox" value="Газета" v-model="passangerChoise.additionals" id="check-business-1">
 					<label class="form-check-label" for="check-business-1">
 						Газета
 					</label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="Коньяк" v-model="checkBusiness" id="check-business-2">
+					<input class="form-check-input" type="checkbox" value="Коньяк" v-model="passangerChoise.additionals" id="check-business-2">
 					<label class="form-check-label" for="check-business-2">
 						Коньяк
 					</label>
@@ -52,13 +53,13 @@
 				<template v-if="isSelectAlco">
 					Оберіть закуску:
 					<div class="form-check mt-2">
-						<input class="form-check-input" type="radio" value="Треба" v-model="radioSnacks" id="radio-snacks-1">
+						<input class="form-check-input" type="radio" value="Треба" v-model="passangerChoise.snacks" id="radio-snacks-1">
 						<label class="form-check-label" for="radio-snacks-1">
 							Треба
 						</label>
 					</div>
 					<div class="form-check mt-2" v-if="isSelectAlco">
-						<input class="form-check-input" type="radio" value="Не треба" v-model="radioSnacks" id="radio-snacks-2">
+						<input class="form-check-input" type="radio" value="Не треба" v-model="passangerChoise.snacks" id="radio-snacks-2">
 						<label class="form-check-label" for="radio-snacks-2">
 							Не треба
 						</label>
@@ -66,22 +67,21 @@
 				</template>
 			</div>
 
-			<div class="border rounded p-5 mt-3" v-else-if="selectedClass === 'econom'">
+			<div class="border rounded p-5 mt-3" v-else-if="passangerChoise.class === 'econom'">
 				<div class="border rounded p-5 mt-3">
 					<h3>Оберіть, що вам треба:</h3>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="Пиво" v-model="checkEconom" id="check-econom-1">
+						<input class="form-check-input" type="checkbox" value="Пиво" v-model="passangerChoise.additionals" id="check-econom-1">
 						<label class="form-check-label" for="check-econom-1">
 							Пиво
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="Чіпси" v-model="checkEconom" id="check-econom-2">
+						<input class="form-check-input" type="checkbox" value="Чіпси" v-model="passangerChoise.additionals" id="check-econom-2">
 						<label class="form-check-label" for="check-econom-2">
 							Чіпси
 						</label>
 					</div>
-					{{checkEconom}}
 				</div>
 			</div>
 		</div>
@@ -98,16 +98,23 @@
 					checkBusiness: [],
 					radioSnacks: '',
 					checkEconom: [],
-					
+					passangerChoise: {
+						class: '',
+						additionals: [],
+						snacks: ''
+					}
 				}
 			},
 			computed: {
 				isSelectAlco() {
-					return this.checkBusiness.indexOf('Коньяк') !== -1
+					return this.passangerChoise.additionals.indexOf('Коньяк') !== -1
 				},
 			},
 			methods: {
-				
+				resetChoise() {
+					this.passangerChoise.additionals = []
+					this.passangerChoise.snacks = ''
+				}
 			}
 		}).mount('#app')
 	</script>
