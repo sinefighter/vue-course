@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<ul class="list-group">
+				<li class="list-group-item" v-for="item in employees" :key="item.id">
+					<b>{{item.name}}</b>: {{item.salary}} грн
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		createApp({
+			data() {
+				return {
+					employees: [
+						{ id: 1, name: "Іван", salary: 50000 },
+						{ id: 2, name: "Марія", salary: 55000 },
+						{ id: 3, name: "Петро", salary: 60000 },
+						{ id: 4, name: "Анна", salary: 52000 },
+						{ id: 5, name: "Олексій", salary: 48000 },
+						{ id: 6, name: "Катерина", salary: 58000 },
+						{ id: 7, name: "Дмитро", salary: 62000 },
+						{ id: 8, name: "Ольга", salary: 53000 },
+						{ id: 9, name: "Сергій", salary: 56000 },
+						{ id: 10, name: "Наталія", salary: 54000 },
+					]
+				}
+			},
+			methods: {
+				
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>
