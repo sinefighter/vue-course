@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.img-fluid {
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<input type="text" class="form-control mb-3" v-model="login" placeholder="Login">
+			<input type="password" class="form-control mb-3" v-model="password" placeholder="Password">
+			<button class="btn btn-primary" @click="userAuth">Login</button>
+			<div 
+				class="alert mt-3" 
+				:class="alertClass"
+				v-if="message"
+			>
+				{{ message }}
+			</div>
+			<div v-if="authStatus">
+				<img class="img-fluid" src="https://clipart-library.com/new_gallery/3-33821_emoticon-logo-png-smiley-face-emoji.png" alt="">
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+		const users = [
+			{
+				login: 'admin',
+				password: '123456'
+			},
+			{
+				login: 'admin2',
+				password: '223456'
+			},
+			{
+				login: 'admin3',
+				password: '323456'
+			},
+			{
+				login: 'admin4',
+				password: '423456'
+			},
+		]
+
+		const USER_NAME = 'Ivan'
+
+		createApp({
+			data() {
+				return {
+					login: null,
+					password: null,
+					message: null,
+					authStatus: false,
+					alertClass: ''
+				}
+			},
+			computed: {
+				isUser() {
+					return this.login.toLowerCase() === USER_NAME.toLowerCase()
+				},
+			},
+			methods: {
+				userAuth() {
+					console.log('userLogin');
+					if(this.login && this.password) {
+						const login = this.login.toLowerCase()
+
+						this.authStatus = users.find(user => login === user.login && this.password === user.password);
+
+						if(this.authStatus) {
+							this.message = 'Вхід дозволено'
+							this.alertClass = 'alert-success'
+						}else{
+							this.message = 'Вхід не дозволено'
+							if(this.isUser) {
+								this.alertClass = 'alert-info'
+							}else{
+								this.alertClass = 'alert-danger'
+							}
+						}
+					}
+				},
+			}
+		}).mount('#app')
+	</script>
+</body>
+</html>
