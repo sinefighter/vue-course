@@ -78,11 +78,11 @@
 						activeIndex: null,
 						randomWords: []
 					},
-					isMatch: false,
-					isWrong: false
+					isMatch: null,
 				}
 			},
-			mounted() {
+			created() {
+				// отримання рандомних масивів слів
 				this.engWords.randomWords = this.getRandomArray()
 				this.uaWords.randomWords = this.getRandomArray()
 			},
@@ -97,26 +97,25 @@
 					}
 					return array
 				},
+				// метод при кліку на слово
 				handleSelect(currentArray, index, word, toSelect) {
 					this.toggleActive(currentArray, index)
 					this.addToSelect(word, toSelect)
 					this.checkMatch()
 				},
+				// обирає активне слово
 				toggleActive(currentArray, index) {
 					currentArray.activeIndex = index
 				},
+				// додає слово до масиву обраних слів
 				addToSelect(word, toSelect) {
 					this.selectedItems[toSelect] = word
 				},
+				// перевіряє чи співпала пара
 				checkMatch() {
 					if(this.selectedItems.engWord && this.selectedItems.uaWord) {
 						const foundWord = this.words.find((word) => {
-							console.log(word);
-							if(word.english === this.selectedItems.engWord && word.ukrainian === this.selectedItems.uaWord) {
-								return true
-							}else{
-								return false
-							}
+							return word.english === this.selectedItems.engWord && word.ukrainian === this.selectedItems.uaWord
 						});
 						if (foundWord) {
 							this.isMatch = true
@@ -126,37 +125,40 @@
 							}, 1000)
 							
 						} else {
-							this.isWrong = true
+							this.isMatch = false
 							setTimeout(() => {
-								this.isWrong = false
 								this.resetList()
 							}, 1000)
 						}
 					}
 				},
+				// видаяє співпадіння слів
 				deleteMatch(match) {
 					this.engWords.randomWords = this.engWords.randomWords.filter(item => item.id !== match.id);
 					this.uaWords.randomWords = this.uaWords.randomWords.filter(item => item.id !== match.id);
-					this.isMatch = false
+					this.resetList()
 				},
+				// вираховуємо потрібний клас для обраних слів
 				getClass(index, activeIndex) {
 					if(index === activeIndex) {
-						if(!this.isMatch && !this.isWrong) {
+						if(this.isMatch === null) {
 							return 'list-group-item-primary'
 						}
 						if(this.isMatch) {
 							return 'list-group-item-success'
 						}
-						if(this.isWrong) {
+						if(!this.isMatch) {
 							return 'list-group-item-danger'
 						}
 					}
 				},
+				// скидуємо при метчі чи якщо слова не співпали
 				resetList() {
 					this.engWords.activeIndex = null
 					this.uaWords.activeIndex = null
 					this.selectedItems.engWord = ''
 					this.selectedItems.uaWord = ''
+					this.isMatch = null
 				}
 			}
 		}).mount('#app')
