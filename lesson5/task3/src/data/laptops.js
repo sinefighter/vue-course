@@ -1,0 +1,32 @@
+export const laptops = [
+	{
+		id: 1,
+		name: 'Ноутбук Acer Aspire 7 A715-76G-56U7 (NH.QN4EU.001) Charcoal Black / Intel Core i5-12450H / RAM 16 ГБ / SSD 512 ГБ / nVidia GeForce RTX 2050, 4 ГБ / Підсвічування клавіатури',
+		image: 'https://content1.rozetka.com.ua/goods/images/big/362592316.jpg',
+		status: 1,
+		link: 'https://rozetka.com.ua/ua/acer-nhqn4eu001/p391395969/',
+		price: 30999,
+		priceOld: 37999,
+		economy: 7000,
+	},
+	{
+		id: 2,
+		name: 'Ноутбук HP Laptop 15s-eq2056ua (4A7P1EA) Natural Silver / AMD Ryzen 3 5300U / RAM 16 ГБ / SSD 512 ГБ / Підсвітка клавіатури',
+		image: 'https://content.rozetka.com.ua/goods/images/big/207458919.jpg',
+		status: 1,
+		link: 'https://rozetka.com.ua/ua/hp-4a7p1ea/p314196580/',
+		price: 19999,
+		priceOld: 23999,
+		economy: 4000,
+	},
+	{
+		id: 3,
+		name: 'Ноутбук ASUS TUF Gaming A15 (2023) FA507NV-LP031 (90NR0E88-M004H0) Jaeger Gray / 15.6" IPS Full HD 144 Гц',
+		image: 'https://content.rozetka.com.ua/goods/images/big/349586929.jpg',
+		status: 0,
+		link: 'https://rozetka.com.ua/ua/asus-90nr0e88-m004h0/p386766864/',
+		price: 49999,
+		priceOld: false,
+		economy: 0,
+	},
+]
