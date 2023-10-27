@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue@next"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="container pt-5">
+		<div id="app">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="border rounded p-5">
+						<select class="form-select" v-model="carBrandValue">
+							<option value="">Оберіть марку авто</option>
+							<option :value="brand" v-for="(brand, index) in carsBrand" :key="index">{{brand}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="border rounded p-5">
+						<select class="form-select" v-model="carYearValue">
+							<option value="">Оберіть рік авто</option>
+							<option :value="year" v-for="(year, index) in carsYear" :key="index">{{year}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 mt-5">
+					<table class="table" v-if="getFilteredCars.length">
+						<thead>
+						  <tr>
+							<th scope="col">Brand</th>
+							<th scope="col">Year</th>
+							<th scope="col">Price</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr v-for="(car, index) in getFilteredCars" :key="index">
+							<td>{{car.brand}}</td>
+							<td>{{car.year}}</td>
+							<td>{{car.price}}$</td>
+						  </tr>
+						</tbody>
+					</table>
+					<div class="alert alert-danger" v-else>
+						Автомобілів немає
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const { createApp } = Vue
+
+		const cars = [
+			{
+				brand: "Toyota",
+				year: 2023,
+				price: 28000,
+			},
+			{
+				brand: "BMW",
+				year: 2015,
+				price: 30000,
+			},
+			{
+				brand: "Mercedes-Benz",
+				year: 2022,
+				price: 50000,
+			},
+			{
+				brand: "Tesla",
+				year: 2021,
+				price: 70000,
+			},
+			{
+				brand: "Volkswagen",
+				year: 2019,
+				price: 25000,
+			},
+			{
+				brand: "Ford",
+				year: 2020,
+				price: 20000,
+			},
+			{
+				brand: "Toyota",
+				year: 2016,
+				price: 10000,
+			},
+			{
+				brand: "BMW",
+				year: 2019,
+				price: 21000,
+			},
+			{
+				brand: "Mercedes-Benz",
+				year: 2021,
+				price: 36000,
+			},
+			{
+				brand: "Tesla",
+				year: 2018,
+				price: 50000,
+			},
+			{
+				brand: "Volkswagen",
+				year: 2017,
+				price: 15000,
+			},
+			{
+				brand: "Ford",
+				year: 2016,
+				price: 9000,
+			},
+			{
+				brand: "Toyota",
+				year: 2020,
+				price: 18000,
+			},
+			{
+				brand: "BMW",
+				year: 2023,
+				price: 50000,
+			},
+			{
+				brand: "Mercedes-Benz",
+				year: 2016,
+				price: 19000,
+			},
+			{
+				brand: "Tesla",
+				year: 2022,
+				price: 60000,
+			},
+			{
+				brand: "Volkswagen",
+				year: 2018,
+				price: 17000,
+			},
+			{
+				brand: "Ford",
+				year: 2019,
+				price: 13000,
+			},
+		];
+		
+		createApp({
+			data() {
+				return {
+					carBrandValue: '',
+					carYearValue: '',
+					carsBrand: [],
+					carsYear: [],
+					filteredCars: []
+				}
+			},
+			created() {
+				this.getCarsBrand()
+				this.getCarsYear()
+			},
+			computed: {
+				getFilteredCars() {
+					return cars.filter((car) => {
+						if (this.carBrandValue && this.carYearValue) {
+						return car.brand === this.carBrandValue && car.year === this.carYearValue;
+						}
+						if (this.carBrandValue) {
+						return car.brand === this.carBrandValue;
+						}
+						if (this.carYearValue) {
+						return car.year === this.carYearValue;
+						}
+						return true;
+					});
+				}
+			},
+			methods: {
+				getCarsBrand() {
+					for(car of cars) {
+						if(!this.carsBrand.includes(car.brand)){
+							this.carsBrand.push(car.brand)
+						}
+					}
+					this.carsBrand.sort()
+				},
+				getCarsYear() {
+					for(car of cars) {
+						if(!this.carsYear.includes(car.year)){
+							this.carsYear.push(car.year)
+						}
+					}
+					this.carsYear.sort()
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>
