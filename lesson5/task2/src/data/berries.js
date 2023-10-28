@@ -10,7 +10,7 @@ export const berries = [
 	{
 		id: 2,
 		name: 'Малина Глен Файн',
-		image: 'http://fruit.org.ua/images/glen_fyne.jpg',
+		image: 'https://dachnyagronom.com/upload/iblock/a8e/karamelka.jpg',
 		market: 'Varus',
 		status: 0,
 		link: '#link-2'
@@ -18,7 +18,7 @@ export const berries = [
 	{
 		id: 3,
 		name: 'Малина Мікер',
-		image: 'http://fruit.org.ua/images/meeker.jpg',
+		image: 'https://traskovskyi.ua/files/products/maravilla_01.690x950.jpg',
 		market: 'Сільпо',
 		status: 1,
 		link: '#link-3'
